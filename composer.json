@@ -1,5 +1,5 @@
 {
-    "name": "agashe/sigmaphp-router",
+    "name": "sigmaphp/sigmaphp-router",
     "description": "PHP Router",
 	"keywords": ["SigmaPHP", "framework", "router"],
     "type": "library",
