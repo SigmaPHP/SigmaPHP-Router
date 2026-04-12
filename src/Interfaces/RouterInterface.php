@@ -76,9 +76,10 @@ interface RouterInterface
     /**
      * Check if static assets route been requested.
      *
+     * @param string $uri
      * @return bool
      */
-    public function checkIfStaticAssetsRequest();
+    public function checkIfStaticAssetsRequest($uri);
 
     /**
      * Set default middleware method's name.

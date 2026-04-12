@@ -555,13 +555,14 @@ class Router implements RouterInterface
     /**
      * Check if static assets route been requested.
      *
+     * @param string $uri
      * @return bool
      */
-    public function checkIfStaticAssetsRequest()
+    public function checkIfStaticAssetsRequest($uri)
     {
         return (bool) preg_match(
             "~^\/" . trim($this->staticAssetsRoute, '/') . "~",
-            $_SERVER['REQUEST_URI']
+            $uri
         );
     }
 
@@ -661,7 +662,7 @@ class Router implements RouterInterface
         // assets could be defined , and if this route was
         // matched , a handler could be triggered to serve
         // the resource
-        if ($this->checkIfStaticAssetsRequest()) {
+        if ($this->checkIfStaticAssetsRequest($uri)) {
             // we add the "host" before the resource path , since the app
             // might be inside some sub-folder , depending on the "host"
             // finally , we remove the additional "/" before any processing
@@ -671,7 +672,7 @@ class Router implements RouterInterface
                 trim(str_replace(
                     trim($this->staticAssetsRoute, '/'),
                     '',
-                    $_SERVER['REQUEST_URI']
+                    $uri
                 ), '/')
             );
 
