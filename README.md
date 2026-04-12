@@ -24,7 +24,7 @@ A fast and simple router for PHP , you can use for your projects to provide user
 ## Installation
 
 ``` 
-composer require agashe/sigmaphp-router
+composer require sigmaphp/sigmaphp-router
 ```
 
 ## Configurations
