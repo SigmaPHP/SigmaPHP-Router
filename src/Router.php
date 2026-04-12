@@ -561,7 +561,7 @@ class Router implements RouterInterface
     public function checkIfStaticAssetsRequest($uri)
     {
         return (bool) preg_match(
-            "~^\/" . trim($this->staticAssetsRoute, '/') . "~",
+            "~^(\/)?" . trim($this->staticAssetsRoute, '/') . "~",
             $uri
         );
     }
