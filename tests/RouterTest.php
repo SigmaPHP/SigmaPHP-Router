@@ -1589,4 +1589,88 @@ class RouterTest extends TestCase
         // run the router
         $router->run();
     }
+
+    /**
+     * Test add routes.
+     *
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testAddRoutes()
+    {
+        $_SERVER['REQUEST_URI'] = '/test-add-routes/ali';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+
+        // create new router instance
+        $router = new Router([
+            [
+                'path' => '/test1',
+                'action' => 'route_handler_a'
+            ]
+        ]);
+
+        $router->addRoutes([
+            [
+                'group' => 'test_add_routes',
+                'prefix' => 'test-add-routes/',
+                'routes' => [
+                    [
+                        'path' => '/{name}',
+                        'action' => 'route_handler_b'
+                    ],
+                ]
+            ]
+        ]);
+
+        // run the router
+        $router->run();
+
+        // assert result
+        $this->expectOutputString(
+            "ali was received"
+        );
+    }
+
+    /**
+     * Test list routes.
+     *
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testListRoutes()
+    {
+        // create new router instance
+        $router = new Router([
+            [
+                'path' => '/test1',
+                'action' => 'route_handler_a'
+            ],
+            [
+                'group' => 'test_add_routes',
+                'prefix' => 'test-add-routes/',
+                'routes' => [
+                    [
+                        'path' => '/{name}',
+                        'action' => 'route_handler_b'
+                    ],
+                ]
+            ]
+        ]);
+
+        // assert result
+        $this->assertEquals([
+            [
+                "path" => "test1",
+                "action" => "route_handler_a",
+                "method" => ["get"],
+                "name" => 0
+            ],
+            [
+                "path" => "test-add-routes/{name}",
+                "action" => "route_handler_b",
+                "name" => "test_add_routes.0",
+                "method" => ["get"]
+            ]
+        ], $router->listRoutes());
+    }
 }

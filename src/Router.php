@@ -82,7 +82,7 @@ class Router implements RouterInterface
             throw new InvalidArgumentException('Routes can\'t be empty');
         }
 
-        // set base path if provided , otherwise load detect it automatically
+        // set base path if provided , otherwise load() detect it automatically
         $this->host = ($host == null) ? $this->detectBasePath() : $host;
 
         // set page not found handler to null (to trigger the default handler)
@@ -259,7 +259,10 @@ class Router implements RouterInterface
 
         // check that static-assets route is not used in the routes array
         $staticAssetsRouteIsUsed = array_filter($routes, function ($route) {
-            return preg_match('~^(\/?)' . $this->staticAssetsRoute . '(\/?)$~', $route['path']);
+            return preg_match(
+                '~^(\/?)' . $this->staticAssetsRoute . '(\/?)$~',
+                $route['path']
+            );
         });
 
         if (!empty($staticAssetsRouteIsUsed)) {
@@ -634,6 +637,28 @@ class Router implements RouterInterface
         }
 
         return $this->getBaseUrl() . '/' . rtrim($path, '/');
+    }
+
+
+    /**
+     * Add new routes.
+     *
+     * @param array $routes
+     * @return void
+     */
+    public function addRoutes($routes)
+    {
+        $this->routes = array_merge($this->routes, $this->load($routes));
+    }
+
+    /**
+     * List all registered routes.
+     *
+     * @return array
+     */
+    public function listRoutes()
+    {
+        return $this->routes;
     }
 
     /**

@@ -88,4 +88,19 @@ interface RouterInterface
      * @return void
      */
     public function setDefaultMiddlewareMethodName($method);
+
+    /**
+     * Add new routes.
+     *
+     * @param array $routes
+     * @return void
+     */
+    public function addRoutes($routes);
+
+    /**
+     * List all registered routes.
+     *
+     * @return array
+     */
+    public function listRoutes();
 }

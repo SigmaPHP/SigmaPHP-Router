@@ -22,7 +22,8 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "agashe/var-dumper": "^0.1.5"
     },
     "scripts": {
         "test": [
