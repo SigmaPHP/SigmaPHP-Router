@@ -155,6 +155,40 @@ $routes = [
 
 The route's name is optional , put it is recommended to give your routes a name , so it becomes easier to work with them , like generating URL using the route's name.
 
+Out of the box, the SigmaPHP-Router provides `addRoutes` methods which could be used to add any additional routes conditionality not only during the initialization.
+
+```
+$newDashboardRoutes = require('new_dashboard.php');
+
+if ($_ENV['new_dashboard] === 'enabled') {
+    $router->addRoutes($newDashboardRoutes);
+}
+```
+
+Also, a the helper method `listRoutes` could be used to list all registered routes. 
+
+```
+$router->listRoutes();
+
+// return:
+[
+    [
+        'name' => 'users.profile',
+        'path' => '/users/profile',
+        'method' => 'get',
+        'controller' => UserController::class,
+        'action' => 'profile',
+    ],
+    [
+        'name' => 'api.users.profile',
+        'path' => '/api/v1/users/profile',
+        'method' => 'get',
+        'controller' => UserApiController::class,
+        'action' => 'profileJson',
+    ],
+]
+```
+
 ### Base Path
 
 In case your application exists in sub-folder of your domain for example `http://localhost/my-app` , you can set the root path in the `router` constructor , using the second parameter:
